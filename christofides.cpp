@@ -32,6 +32,36 @@ Graph ReadFile(string filename) {
 	return Graph(edges);
 }
 
+/**
+ * Read file metric. 
+ * Given a list of 2d points
+ * Construct a graph from this
+ * */
+void ReadFileMetric(string filename) {
+	vector<pair<double,double>> points;
+	string line;
+
+	ifstream infile;
+	infile.open(filename);
+
+	if (infile.is_open()) {
+		while(getline(infile, line)) {
+			int a,b,c;
+			stringstream ss(line);
+			ss >> a >> b >> c;
+			points.push_back(make_pair(b,c));
+		}
+		infile.close();
+	} else {
+		cout << "Unable to read file";
+	}
+	cout << "------" << endl;
+	for (pair<double,double> i : points) {
+		cout << "<" << i.first << "," << ">" << endl;
+	}
+	//return Graph()
+}
+
 /** Computes the minimum spanning tree of [graph]. Takes and returns adjacency-list representations of a graph.
 The graph must be connected and contain at least one node! **/
 Graph MST(Graph &graph) {
@@ -42,7 +72,7 @@ Graph MST(Graph &graph) {
 		Edge e(0, p.first, p.second);
 		edge_queue.push(e);
 	}
-
+	
 	vector<Edge> edges;
 
 	while (visited.size() < graph.n_nodes) {
@@ -63,7 +93,7 @@ Graph MST(Graph &graph) {
 		visited.insert(e.node1);
 		visited.insert(e.node2);
 	}
-
+	
 	return Graph(edges);
 }
 
@@ -108,6 +138,20 @@ vector<Edge> min_wt_perfect_matching(Graph &graph) {
 }
 
 
+
+/**
+ * Christofides Algorithm
+ * Given : Complete Graph whose edge weights follow the triangle inequality 
+ * 
+ * Procedure:
+ *  1. Calculate T = MST
+ *  2. Calculate Set of Vertices with Odd Degree in T. This is called O
+ *  3. Form the subgraph of G using only the vertices of O
+ *  4. Get Minimum Weight perfect matching M from this subgraph
+ *  5. Take T union M to form a eularian multigraph R
+ *  6. Calculate the euler tour of R
+ *  7. Remove the repeated vertices giving the algorithms output
+ * */
 int main()
 {
 	
@@ -136,15 +180,15 @@ int main()
 	//edges.push_back(Edge(0, 2, 2));
 	//edges.push_back(Edge(1, 3, 4));
 	Graph g(edges);
+
 	Graph n = ReadFile("GRAPH1.TXT");
-	vector<int> path2 = euler_cycle(n);
-	for (int i : path2) {
+	
+	//vector<int> path2 = euler_cycle(n);
+	/*for (int i : path2) {
 		cout << i << endl;
-	}
-	vector<int> path = euler_cycle(g);
-	for (int i : path) {
-		cout << i << endl;
-	}
+	}*/
+	Graph ms = MST(n);
+	ms.print();
 	//Graph h = MST(g);
 	//h.print();
 	//h.remove_edge(0, 0);
