@@ -1,5 +1,7 @@
 #include <fstream>
 #include <sstream>
+#include <set>
+#include <math.h>
 
 using namespace std;
 
@@ -33,12 +35,24 @@ Graph ReadFile(string filename) {
 }
 
 /**
+ * Calculates the Euclidian distance between two points
+ * */
+double eucDist(pair<double,double> a, pair<double,double> b) {
+	if (a == b) {
+		return 0.0;
+	}
+	double dist = sqrt ( pow (a.first - b.first, 2) + pow (a.second - b.second, 2));
+	return dist;
+}
+/**
  * Read file metric. 
  * Given a list of 2d points
  * Construct a graph from this
  * */
-void ReadFileMetric(string filename) {
+Graph ReadFileMetric(string filename) {
 	vector<pair<double,double>> points;
+	vector<Edge> edges;
+	set<pair<int,int>> visited;
 	string line;
 
 	ifstream infile;
@@ -46,7 +60,8 @@ void ReadFileMetric(string filename) {
 
 	if (infile.is_open()) {
 		while(getline(infile, line)) {
-			int a,b,c;
+			int a;
+			long double b,c;
 			stringstream ss(line);
 			ss >> a >> b >> c;
 			points.push_back(make_pair(b,c));
@@ -55,11 +70,25 @@ void ReadFileMetric(string filename) {
 	} else {
 		cout << "Unable to read file";
 	}
+
+
 	cout << "------" << endl;
-	for (pair<double,double> i : points) {
-		cout << "<" << i.first << "," << ">" << endl;
+	for (int i = 0; i < points.size(); i++) {
+		pair<double,double> a = points[i];
+		for (int j = 0; j < points.size(); j++) {
+			pair<double,double> b = points[j];
+			double dist = eucDist(a,b);
+			if ((dist == 0.0) || (visited.count(make_pair(i,j)) || visited.count(make_pair(j,i)))) {
+				continue;
+			} else {
+				visited.insert(make_pair(i,j));
+				visited.insert(make_pair(j,i));
+				edges.push_back(Edge(i,j,dist));
+			}
+		}
 	}
-	//return Graph()
+	return Graph(edges);
+
 }
 
 /** Computes the minimum spanning tree of [graph]. Takes and returns adjacency-list representations of a graph.
@@ -181,14 +210,16 @@ int main()
 	//edges.push_back(Edge(1, 3, 4));
 	Graph g(edges);
 
-	Graph n = ReadFile("GRAPH1.TXT");
+	Graph n = ReadFile("TESTS/GRAPH1.TXT");
+	Graph b = ReadFileMetric("TESTS/dj38.tsp");
+	b.print();
 	
 	//vector<int> path2 = euler_cycle(n);
 	/*for (int i : path2) {
 		cout << i << endl;
 	}*/
-	Graph ms = MST(n);
-	ms.print();
+	//Graph ms = MST(n);
+	//ms.print();
 	//Graph h = MST(g);
 	//h.print();
 	//h.remove_edge(0, 0);
