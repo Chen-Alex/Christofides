@@ -6,8 +6,10 @@
 #include <queue>
 #include <unordered_set>
 #include <algorithm>
+#include <random>
 #include <stack>
 #include <string>
+#include <fstream>
 #include <iostream>
 
 #include "edge.h"
