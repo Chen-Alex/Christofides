@@ -1,79 +1,36 @@
-#include <stdio.h>
-#include <vector>
-#include <queue>
-#include <unordered_set>
-#include <algorithm>
-#include <iostream>
-#include <stack>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
-/** Structure that represents an undirected edge between two nodes.
-Comparison of two edges compares their weights.
-Two edges are the same if they connect the same nodes, in either order. **/
-struct Edge {
-	int node1, node2;
-	double weight;
-	Edge(int n1, int n2, double w) {
-		node1 = n1;
-		node2 = n2;
-		weight = w;
-	}
-	/* The equals function checks if this edge connects the same nodes as edge [e] and has the same weight.*/
-	bool equals(Edge e) {
-		return ((e.node1 == node1 && e.node2 == node2) || (e.node1 == node2 && e.node2 == node1)) && weight == e.weight;
-	}
-};
+#include "edge.h"
+#include "graph.h"
+#include "compareedge.h"
 
-/** Compare edges by weight, descending **/
-struct CompareEdge {
-	bool operator() (const Edge &e1, const Edge &e2) {
-		return e1.weight > e2.weight;
-	}
-};
+/**
+ * Reads in a file in specified format and returns the resulting graph
+ * **/
+Graph ReadFile(string filename) {
+	vector<Edge> edges;
+	string line;
 
-/** Represents a (undirected) graph. **/
-struct Graph {
-	// Number of nodes. The nodes are labeled 0, 1, 2, ... , up to n_nodes - 1.
-	int n_nodes;
-	// Adjacency list. [adj[i]] gives a list of (node, weight) pairs where i, node are connected.
-	vector<vector<pair<int, double>>> adj;
-	// Construct a graph by giving the adjacency list
-	Graph(vector<vector<pair<int, double>>> &a) {
-		n_nodes = a.size();
-		adj = a;
-	}
-	// Construct a graph by giving a list of edges
-	Graph(vector<Edge> edges) {
-		n_nodes = 0;
-		for (Edge e : edges) {
-			n_nodes = max(n_nodes, e.node1 + 1);
-			n_nodes = max(n_nodes, e.node2 + 1);
-			while (adj.size() < n_nodes) adj.push_back(vector<pair<int, double>>());
-			adj[e.node1].push_back(make_pair(e.node2, e.weight));
-			adj[e.node2].push_back(make_pair(e.node1, e.weight));
+	ifstream infile;
+	infile.open(filename);
+
+	if (infile.is_open()) {
+		while(getline(infile, line)) {
+			int a,b,c;
+			stringstream ss(line);
+			ss >> a >> b >> c;
+			edges.push_back(Edge(a,b,c));
 		}
+		infile.close();
+	} else {
+		cout << "Unable to read file";
 	}
-	// Print the adjacency list...
-	void print() {
-		for (int i = 0; i < adj.size(); i++) {
-			cout << i << ": ";
-			for (pair<int, double> conn : adj[i]) {
-				cout << "(" << conn.first << ", " << conn.second << ") ";
-			}
-			cout << endl;
-		}
-	}
-	// Remove an edge from the graph. In particular, removes
-	// the [index]th edge from adj[node], and the reverse direction as well.
-	void remove_edge(int node, int index) {
-		if (node >= adj.size() || index >= adj[node].size()) return;
-		int other_node = adj[node][index].first;
-		pair<int, double> to_find = make_pair(node, adj[node][index].second);
-		adj[other_node].erase(find(adj[other_node].begin(), adj[other_node].end(), to_find));
-		adj[node].erase(adj[node].begin() + index);
-	}
-};
+	cout << "--------" << endl;
+	return Graph(edges);
+}
 
 /** Computes the minimum spanning tree of [graph]. Takes and returns adjacency-list representations of a graph.
 The graph must be connected and contain at least one node! **/
@@ -153,6 +110,7 @@ vector<Edge> min_wt_perfect_matching(Graph &graph) {
 
 int main()
 {
+	
 	vector<Edge> edges;
 	/*edges.push_back(Edge(0, 1, 1));
 	edges.push_back(Edge(1, 2, 1));
@@ -178,6 +136,11 @@ int main()
 	//edges.push_back(Edge(0, 2, 2));
 	//edges.push_back(Edge(1, 3, 4));
 	Graph g(edges);
+	Graph n = ReadFile("GRAPH1.TXT");
+	vector<int> path2 = euler_cycle(n);
+	for (int i : path2) {
+		cout << i << endl;
+	}
 	vector<int> path = euler_cycle(g);
 	for (int i : path) {
 		cout << i << endl;
