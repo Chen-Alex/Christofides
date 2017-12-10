@@ -131,4 +131,22 @@ The main evaluation metric that we wanted to evaluate was the accuracy of Christ
 
 Our goal was to compute the average approximation factor in each of these test scenarios and evaluate whether they differed significantly or at all. In order to do this, we ran each test file on both an exact TSP solver and our implementation of Christofides' algorithm (but using a library implementation of the blossom algorithm). The results are summarized in the graphs below.
 
+\begin{center}
+\includegraphics[scale=0.8]{uniform.pdf}
+\includegraphics[scale=0.8]{ctc.pdf}
+\includegraphics[scale=0.8]{cth.pdf}
+\end{center}
+
+The approximation ratio averaged $1.107$, $1.097$, and $1.089$ for the uniform, near-origin, and near-hubs cases, respectively. Given the relatively small number of tests that we performed, the differences between the means are not significant enough to draw any sort of conclusion of whether the distribution of points in the plane affects the expected approximation ratio. 
+
+However, given the distributions of the approximation factors, we can conclude with some confidence that unless an adversarial agent is constructing the graphs, it is unlikely that the average-case performance of Christofides' algorithm will approach its worst-case performance. In combination with its relatively fast runtime -- on some inputs our exact TSP solver took several seconds to compute the answer for a $100$-node test case -- makes it a viable choice for approximating TSP solutions when a polynomial-time algorithm is needed or desired. 
+
+\newpage
+
+\noindent References: 
+ 
+\noindent [1] \textit{Computing Minimum-Weight Perfect Matchings}, William Cook and Andr\'e Rohe \\
+{[2]} \textit{Blossom V: a new implementation of a minimum cost perfect matching algorithm}, Vladimir Kolmogorov
+
+
 \end{document}
