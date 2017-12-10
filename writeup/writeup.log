@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.2.6)  10 DEC 2017 02:16
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2016.2.6)  10 DEC 2017 03:05
 entering extended mode
 **writeup.tex
 ("C:\Users\Alex\OneDrive\Documents\Fall 2017\CS 6820\Project\writeup\writeup.tex"
@@ -276,13 +276,35 @@ File: runtime.pdf Graphic file (type pdf)
 <use runtime.pdf>
 Package pdftex.def Info: runtime.pdf used on input line 118.
 (pdftex.def)             Requested size: 395.87955pt x 254.55133pt.
- [4 <C:/Users/Alex/OneDrive/Documents/Fall 2017/CS 6820/Project/writeup/runtime.pdf>]
+ <uniform.pdf, id=29, 556.0775pt x 371.3875pt>
+File: uniform.pdf Graphic file (type pdf)
+ <use uniform.pdf>
+Package pdftex.def Info: uniform.pdf used on input line 135.
+(pdftex.def)             Requested size: 444.86261pt x 297.1104pt.
+
+<ctc.pdf, id=30, 556.0775pt x 371.3875pt>
+File: ctc.pdf Graphic file (type pdf)
+ <use ctc.pdf>
+Package pdftex.def Info: ctc.pdf used on input line 136.
+(pdftex.def)             Requested size: 444.86261pt x 297.1104pt.
+ <cth.pdf, id=31, 556.0775pt x 371.3875pt>
+File: cth.pdf Graphic file (type pdf)
+ <use cth.pdf>
+Package pdftex.def Info: cth.pdf used on input line 137.
+(pdftex.def)             Requested size: 444.86261pt x 297.1104pt.
+ [4 <C:/Users/Alex/OneDrive/Documents/Fall 2017/CS 6820/Project/writeup/runtime.pdf>] [5 <C:/Users/Alex/OneDrive/Documen
+ts/Fall 2017/CS 6820/Project/writeup/uniform.pdf> <C:/Users/Alex/OneDrive/Documents/Fall 2017/CS 6820/Project/writeup/ct
+c.pdf
+
+pdfTeX warning: pdflatex.exe (file C:/Users/Alex/OneDrive/Documents/Fall 2017/CS 6820/Project/writeup/ctc.pdf): PDF incl
+usion: multiple pdfs with page group included in a single page
+>] [6 <C:/Users/Alex/OneDrive/Documents/Fall 2017/CS 6820/Project/writeup/cth.pdf>] [7]
 ("C:\Users\Alex\OneDrive\Documents\Fall 2017\CS 6820\Project\writeup\writeup.aux") ) 
 Here is how much of TeX's memory you used:
- 3141 strings out of 493921
- 41666 string characters out of 3144880
+ 3157 strings out of 493921
+ 41856 string characters out of 3144880
  107670 words of memory out of 3000000
- 6400 multiletter control sequences out of 15000+200000
+ 6413 multiletter control sequences out of 15000+200000
  12017 words of font info for 47 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  27i,10n,32p,1330b,197s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -298,9 +320,9 @@ ts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Fil
 es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on writeup.pdf (4 pages, 228210 bytes).
+Output written on writeup.pdf (7 pages, 291905 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
+ 135 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
