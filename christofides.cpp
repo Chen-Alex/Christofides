@@ -2,11 +2,13 @@
 #include <sstream>
 #include <set>
 #include <math.h>
+#include <unordered_map>
 
 using namespace std;
 
+#include "edge.h"
 #include "graph.h"
-#include "random.h"
+#include "compareedge.h"
 
 /**
  * Reads in a file in specified format and returns the resulting graph
@@ -160,12 +162,42 @@ end:
 	return path;
 }
 
-/** Computes a minimum weight perfect matching in [graph]. Assumes that [graph] has a perfect matching. **/
-vector<Edge> min_wt_perfect_matching(Graph &graph) {
-
+/** Returns the graph induced by the odd degree vertices in the MST **/
+Graph odd_subgraph(Graph &graph, Graph &mst) {
+	unordered_map<int, int> odd_nodes;
+	int cnt = 0;
+	for (int i = 0; i < mst.n_nodes; i++) {
+		if (mst.adj[i].size() & 1) {
+			odd_nodes.insert({ i, cnt });
+			cnt++;
+		}
+	}
+	vector<vector<pair<int, double>>> adj;
+	for (int i = 0; i < graph.n_nodes; i++) {
+		if (odd_nodes.find(i) == odd_nodes.end()) continue;
+		vector<pair<int, double>> q;
+		for (pair<int, double> a : graph.adj[i]) {
+			if (odd_nodes.find(a.first) != odd_nodes.end()) {
+				q.push_back(make_pair(odd_nodes[a.first], a.second));
+			}
+		}
+		adj.push_back(q);
+	}
+	
+	return Graph(adj);
 }
 
-
+/** Remove the repeated vertices of v **/
+vector<int> get_unique(vector<int> v) {
+	unordered_set<int> seen; 
+	vector<int> nv;
+	for (int i : v) {
+		if (seen.find(i) != seen.end()) continue;
+		seen.insert(i);
+		nv.push_back(i);
+	}
+	return nv;
+}
 
 /**
  * Christofides Algorithm
@@ -180,44 +212,49 @@ vector<Edge> min_wt_perfect_matching(Graph &graph) {
  *  6. Calculate the euler tour of R
  *  7. Remove the repeated vertices giving the algorithms output
  * */
-int main()
-{
-	// Old test 
-	/* vector<Edge> edges;
-	edges.push_back(Edge(0, 1, 1));
-	edges.push_back(Edge(1, 2, 1));
-	edges.push_back(Edge(2, 3, 1));
-	edges.push_back(Edge(3, 0, 1));
-	edges.push_back(Edge(3, 4, 1));
-	edges.push_back(Edge(4, 5, 1));
-	edges.push_back(Edge(5, 6, 1));
-	edges.push_back(Edge(6, 3, 1));
-	edges.push_back(Edge(2, 7, 1));
-	edges.push_back(Edge(7, 8, 1));
-	edges.push_back(Edge(8, 9, 1));
-	edges.push_back(Edge(9, 2, 1));
-	edges.push_back(Edge(1, 10, 1));
-	edges.push_back(Edge(10, 11, 1));
-	edges.push_back(Edge(11, 12, 1));
-	edges.push_back(Edge(12, 1, 1));
-	edges.push_back(Edge(0, 13, 1));
-	edges.push_back(Edge(13, 14, 1));
-	edges.push_back(Edge(14, 15, 1));
-	edges.push_back(Edge(15, 0, 1));
-	vector<Edge> edges;
-	Graph g(edges);
-	*/
-
-	
-	// Test readfile and readfile metric
-	/*
-	Graph n = ReadFile("TESTS/GRAPH1.TXT");
-	Graph b = ReadFileMetric("TESTS/dj38.tsp");
-	b.print();
-	*/
-	close_to_hub(100, "out.txt");
-	Graph g = ReadFileMetric("out.txt");
-	g.print();
-	return 0;
-}
+//int main()
+//{
+//	
+//	vector<Edge> edges;
+//	/*edges.push_back(Edge(0, 1, 1));
+//	edges.push_back(Edge(1, 2, 1));
+//	edges.push_back(Edge(2, 3, 1));
+//	edges.push_back(Edge(3, 0, 1));
+//	edges.push_back(Edge(3, 4, 1));
+//	edges.push_back(Edge(4, 5, 1));
+//	edges.push_back(Edge(5, 6, 1));
+//	edges.push_back(Edge(6, 3, 1));
+//	edges.push_back(Edge(2, 7, 1));
+//	edges.push_back(Edge(7, 8, 1));
+//	edges.push_back(Edge(8, 9, 1));
+//	edges.push_back(Edge(9, 2, 1));
+//	edges.push_back(Edge(1, 10, 1));
+//	edges.push_back(Edge(10, 11, 1));
+//	edges.push_back(Edge(11, 12, 1));
+//	edges.push_back(Edge(12, 1, 1));
+//	edges.push_back(Edge(0, 13, 1));
+//	edges.push_back(Edge(13, 14, 1));
+//	edges.push_back(Edge(14, 15, 1));
+//	edges.push_back(Edge(15, 0, 1));*/
+//
+//	//edges.push_back(Edge(0, 2, 2));
+//	//edges.push_back(Edge(1, 3, 4));
+//	Graph g(edges);
+//
+//	Graph n = ReadFile("TESTS/GRAPH1.TXT");
+//	Graph b = ReadFileMetric("TESTS/dj38.tsp");
+//	b.print();
+//	
+//	//vector<int> path2 = euler_cycle(n);
+//	/*for (int i : path2) {
+//		cout << i << endl;
+//	}*/
+//	//Graph ms = MST(n);
+//	//ms.print();
+//	//Graph h = MST(g);
+//	//h.print();
+//	//h.remove_edge(0, 0);
+//	//h.print();
+//	return 0;
+//}
 
