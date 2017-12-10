@@ -6,11 +6,13 @@ echo "Enter your output name"
 read outp
 for file in $fold/*.tsp
 do
+    echo $file
     #    echo "$counter," >> hi.txt
     ./concorde -x $file | grep -oP '(?<=Optimal Solution: ).*' >> $outp.txt
     let counter+=1
 done
 rm *.sol
+rm *.res
 rm *.pul
 rm *.sav
-rm *.res
+rm *.mas
