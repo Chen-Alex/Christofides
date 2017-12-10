@@ -1,4 +1,0 @@
-<Num Nodes> <Remaining lines>
-Node -> Node Weight
-...
-Node -> Node Weight
