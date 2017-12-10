@@ -6,9 +6,8 @@
 
 using namespace std;
 
-#include "edge.h"
 #include "graph.h"
-#include "compareedge.h"
+#include "random.h"
 
 /**
  * Reads in a file in specified format and returns the resulting graph
@@ -212,49 +211,45 @@ vector<int> get_unique(vector<int> v) {
  *  6. Calculate the euler tour of R
  *  7. Remove the repeated vertices giving the algorithms output
  * */
-//int main()
-//{
-//	
-//	vector<Edge> edges;
-//	/*edges.push_back(Edge(0, 1, 1));
-//	edges.push_back(Edge(1, 2, 1));
-//	edges.push_back(Edge(2, 3, 1));
-//	edges.push_back(Edge(3, 0, 1));
-//	edges.push_back(Edge(3, 4, 1));
-//	edges.push_back(Edge(4, 5, 1));
-//	edges.push_back(Edge(5, 6, 1));
-//	edges.push_back(Edge(6, 3, 1));
-//	edges.push_back(Edge(2, 7, 1));
-//	edges.push_back(Edge(7, 8, 1));
-//	edges.push_back(Edge(8, 9, 1));
-//	edges.push_back(Edge(9, 2, 1));
-//	edges.push_back(Edge(1, 10, 1));
-//	edges.push_back(Edge(10, 11, 1));
-//	edges.push_back(Edge(11, 12, 1));
-//	edges.push_back(Edge(12, 1, 1));
-//	edges.push_back(Edge(0, 13, 1));
-//	edges.push_back(Edge(13, 14, 1));
-//	edges.push_back(Edge(14, 15, 1));
-//	edges.push_back(Edge(15, 0, 1));*/
-//
-//	//edges.push_back(Edge(0, 2, 2));
-//	//edges.push_back(Edge(1, 3, 4));
-//	Graph g(edges);
-//
-//	Graph n = ReadFile("TESTS/GRAPH1.TXT");
-//	Graph b = ReadFileMetric("TESTS/dj38.tsp");
-//	b.print();
-//	
-//	//vector<int> path2 = euler_cycle(n);
-//	/*for (int i : path2) {
-//		cout << i << endl;
-//	}*/
-//	//Graph ms = MST(n);
-//	//ms.print();
-//	//Graph h = MST(g);
-//	//h.print();
-//	//h.remove_edge(0, 0);
-//	//h.print();
-//	return 0;
-//}
+int main()
+{
+	// Old test 
+	/* vector<Edge> edges;
+	edges.push_back(Edge(0, 1, 1));
+	edges.push_back(Edge(1, 2, 1));
+	edges.push_back(Edge(2, 3, 1));
+	edges.push_back(Edge(3, 0, 1));
+	edges.push_back(Edge(3, 4, 1));
+	edges.push_back(Edge(4, 5, 1));
+	edges.push_back(Edge(5, 6, 1));
+	edges.push_back(Edge(6, 3, 1));
+	edges.push_back(Edge(2, 7, 1));
+	edges.push_back(Edge(7, 8, 1));
+	edges.push_back(Edge(8, 9, 1));
+	edges.push_back(Edge(9, 2, 1));
+	edges.push_back(Edge(1, 10, 1));
+	edges.push_back(Edge(10, 11, 1));
+	edges.push_back(Edge(11, 12, 1));
+	edges.push_back(Edge(12, 1, 1));
+	edges.push_back(Edge(0, 13, 1));
+	edges.push_back(Edge(13, 14, 1));
+	edges.push_back(Edge(14, 15, 1));
+	edges.push_back(Edge(15, 0, 1));
+	vector<Edge> edges;
+	Graph g(edges);
+	*/
+
+	
+	// Test readfile and readfile metric
+	/*
+	Graph n = ReadFile("TESTS/GRAPH1.TXT");
+	Graph b = ReadFileMetric("TESTS/dj38.tsp");
+	b.print();
+	*/
+	close_to_hub(100, "out.txt");
+	Graph g = ReadFileMetric("out.txt");
+	g.print();
+	return 0;
+}
+
 
